@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'updateProfile']);
     Route::post('/profile/photo', [ProfileController::class, 'updateProfilePhoto']);
     Route::delete('/profile/photo', [ProfileController::class, 'deleteProfilePhoto']);
+
+    // Books Endpoint
+    Route::post('books', [BookController::class,'store']);
+    Route::get('books',  [BookController::class,'index']);
 });
