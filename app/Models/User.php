@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'profile_photo',
+        'is_admin'
     ];
 
     /**
@@ -46,5 +47,33 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_users');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    // if you store photo path and want full URL:
+    // public function getProfilePhotoUrlAttribute()
+    // {
+    //     return $this->profile_photo
+    //         ? url("storage/{$this->profile_photo}")
+    //         : null;
+    // }
+
+    public function post()
+    {
+        return $this->hasMany(Post::class, 'posts');
+    }
+
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class);
     }
 }
