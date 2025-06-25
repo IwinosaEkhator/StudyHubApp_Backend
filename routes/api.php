@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/signout', [AuthController::class, 'signout']);
 
     Route::get('/subjects', [SubjectController::class, 'index']);
+    Route::get('/users/{user}/subjects', [UserSubjectController::class, 'index']);
     Route::post('/users/{user}/subjects', [UserSubjectController::class, 'store']);
 
 

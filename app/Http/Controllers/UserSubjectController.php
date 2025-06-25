@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class UserSubjectController extends Controller
 {
+
+    public function index(User $user)
+    {
+        // eager-load or just return the pivot
+        return response()->json(
+            $user->subjects()->get(['id', 'name'])
+        );
+    }
+
      public function store(Request $req, User $user)
     {
         $req->validate(['subjects' => 'required|array']);
