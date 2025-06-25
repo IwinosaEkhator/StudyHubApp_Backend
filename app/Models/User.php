@@ -49,6 +49,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function subjects() {
+        return $this->belongsToMany(Subject::class);
+    }
+
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'group_users');
@@ -76,4 +80,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Conversation::class);
     }
+
+
 }

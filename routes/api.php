@@ -10,7 +10,9 @@ use App\Http\Controllers\MessageAttachmentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserSubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,10 @@ Route::post('/signin', [AuthController::class, 'signin']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/signout', [AuthController::class, 'signout']);
 
+    Route::get('/subjects', [SubjectController::class, 'index']);
+    Route::post('/users/{user}/subjects', [UserSubjectController::class, 'store']);
+
+
     //Profile Endpoint
     Route::get('/profile', [ProfileController::class, 'getProfile']);
     Route::patch('/profile', [ProfileController::class, 'updateProfile']);
@@ -32,9 +38,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/profile/photo', [ProfileController::class, 'deleteProfilePhoto']);
 
     // Books Endpoint
-    Route::post('books', [BookController::class, 'store']);
-    Route::get('books',  [BookController::class, 'index']);
 
+
+    Route::middleware('auth:api')->group(function () {
+        Route::post('/books', [BookController::class, 'store']);
+        Route::get('/books',  [BookController::class, 'index']);
+    });
     // Conversation Endpoint
     // Route::middleware('auth:api')->group(function () {
     Route::get('/conversations',[ConversationController::class, 'index']);

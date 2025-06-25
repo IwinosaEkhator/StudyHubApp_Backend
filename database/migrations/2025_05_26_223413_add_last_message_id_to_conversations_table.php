@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (! Schema::hasColumn('conversations', 'last_message_id')) {
         Schema::table('conversations', function (Blueprint $table) {
-            $table->foreignId('last_message_id')->nullable()
-              ->constrained('messages')
-              ->cascadeOnDelete();
+            $table->foreignId('last_message_id')
+                  ->nullable()
+                  ->constrained('messages');
         });
+    }
     }
 
     /**
